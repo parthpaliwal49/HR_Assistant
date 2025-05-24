@@ -1,5 +1,3 @@
-Here's a clean and professional `README.md` tailored for your **GenAI-powered HR Assistant** project:
-
 ---
 
 ````markdown
