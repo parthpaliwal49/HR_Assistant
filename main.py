@@ -4,18 +4,88 @@ from agents import HRAssistantOrchestrator
 from PyPDF2 import PdfReader
 from docx import Document
 
-# Set API key securely (placeholder for demo)
+# Set API key (placeholder)
 os.environ["GOOGLE_API_KEY"] = "AIzaSyBvaCZAq2bJkLgdA1kuY_IBLE6TkzP7k1k"
 
 # Instantiate the assistant
 assistant = HRAssistantOrchestrator(folder_path="data")
 
-# Page setup
+# Page Config
 st.set_page_config(page_title="🤖 GenAI HR Assistant", layout="wide")
-st.title("🤖 GenAI-Powered HR Assistant")
-st.markdown("Enhancing the HR process with intelligent automation")
 
-# Helper to extract text from uploaded files
+# ----------------------------
+# Custom Styling
+# ----------------------------
+st.markdown(
+    """
+    <style>
+    /* Custom global styles */
+    body {
+        font-family: 'Segoe UI', sans-serif;
+    }
+    .main {
+        background-color: #f5f3fa;
+    }
+
+    /* Title and header styling */
+    h1 {
+        color: #6a0dad;
+    }
+    .stTabs [role="tablist"] {
+        background-color: #f0e6ff;
+        border-radius: 10px;
+    }
+    .stTabs [role="tab"] {
+        font-weight: 600;
+        color: #6a0dad;
+    }
+
+    /* Upload box sizing */
+    .stFileUploader {
+        width: 100% !important;
+    }
+
+    /* Remove default uploader text */
+    .stFileUploader > div > div > div > p,
+    .stFileUploader > div > div > div > label {
+        display: none;
+    }
+
+    /* Buttons */
+    button[kind="primary"] {
+        background-color: #6a0dad !important;
+        color: white !important;
+        border-radius: 10px;
+        font-weight: 600;
+    }
+
+    /* Success, warning, info */
+    .stAlert {
+        border-left: 5px solid #6a0dad;
+    }
+
+    /* Text area styling */
+    .stTextArea textarea {
+        background-color: #f5f0ff;
+    }
+    </style>
+    """,
+    unsafe_allow_html=True,
+)
+
+# ----------------------------
+# Header & Home Button
+# ----------------------------
+col1, col2 = st.columns([8, 1])
+with col1:
+    st.markdown("<h1>🤖 AI-Powered HR Assistant</h1>", unsafe_allow_html=True)
+with col2:
+    if st.button("🏠 Home"):
+        st.experimental_rerun()
+
+# ----------------------------
+# Text Extraction Helper
+# ----------------------------
 def extract_text(file):
     if file.name.endswith(".pdf"):
         pdf = PdfReader(file)
@@ -26,7 +96,9 @@ def extract_text(file):
     else:
         return file.read().decode("utf-8", errors="ignore")
 
+# ----------------------------
 # Tabs
+# ----------------------------
 tabs = st.tabs(["📄 Resume Screening", "📬 Candidate Messaging", "💬 Support Bot (RAG)"])
 
 # ----------------------------
@@ -34,7 +106,6 @@ tabs = st.tabs(["📄 Resume Screening", "📬 Candidate Messaging", "💬 Suppo
 # ----------------------------
 with tabs[0]:
     st.subheader("📄 Resume Screening")
-    st.markdown("Upload a job description and candidate resumes (PDF, DOCX, or TXT).")
 
     job_file = st.file_uploader("📝 Upload Job Description", type=["pdf", "docx", "txt"])
     resume_files = st.file_uploader("📋 Upload Candidate Resumes", type=["pdf", "docx", "txt"], accept_multiple_files=True)
@@ -43,7 +114,7 @@ with tabs[0]:
         if not job_file or not resume_files:
             st.warning("Please upload both job description and at least one resume.")
         else:
-            with st.spinner("Extracting text and analyzing resumes..."):
+            with st.spinner("Analyzing resumes..."):
                 job_description = extract_text(job_file)
                 resumes = [extract_text(resume) for resume in resume_files]
 
@@ -63,9 +134,10 @@ with tabs[0]:
 # ----------------------------
 with tabs[1]:
     st.subheader("📬 Candidate Messaging")
+
     candidate_name = st.text_input("👤 Candidate Name")
     status = st.selectbox("📌 Status", ["Interview", "Rejected", "Offer", "Feedback"])
-    interview_date = st.text_input("📅 Interview Date (Optional)", placeholder="e.g., Monday at 10AM")
+    interview_date = st.text_input("📅 Interview Date (Optional)")
 
     if st.button("✉️ Generate Email"):
         with st.spinner("Generating email..."):
@@ -82,6 +154,7 @@ with tabs[1]:
 # ----------------------------
 with tabs[2]:
     st.subheader("💬 Candidate Support Bot (RAG)")
+
     query = st.text_input("❓ Ask a question from HR documents")
     if st.button("🔎 Get Answer"):
         with st.spinner("Searching HR documents..."):
