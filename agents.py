@@ -1,3 +1,7 @@
+<<<<<<< HEAD
+=======
+import os
+>>>>>>> 25b6894cbbb1a13afb4e3d0199b9760be7b2af50
 from langchain.document_loaders import TextLoader
 from langchain.vectorstores import FAISS
 from langchain.chains import RetrievalQA
@@ -9,6 +13,10 @@ from langchain_google_genai import (
 )
 
 # Instantiate your LLM once here
+<<<<<<< HEAD
+=======
+# Set API key (placeholder)
+>>>>>>> 25b6894cbbb1a13afb4e3d0199b9760be7b2af50
 import dotenv
 dotenv.load_dotenv(".env")
 os.environ["GOOGLE_API_KEY"] = os.getenv("GOOGLE_API_KEY")
@@ -42,6 +50,7 @@ class ResumeScreeningAgent:
 ### --- Candidate Messaging Agent --- ###
 class CandidateMessagingAgent:
     def __init__(self, llm):
+        
         self.llm = llm
 
     def generate_email(self, candidate_name, status, interview_date=None):
