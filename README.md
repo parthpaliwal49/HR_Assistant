@@ -27,8 +27,8 @@ This project is an **Agent-based HR Assistant** built with **LangChain**, **Gemi
 ### 1. Clone the Repo
 
 ```bash
-git clone https://github.com/your-username/hr-assistant.git
-cd hr-assistant
+git clone https://github.com/parthpaliwal49/HR_Assistant.git
+cd HR_Assistant
 ```
 
 ### 2. Set up Virtual Environment
