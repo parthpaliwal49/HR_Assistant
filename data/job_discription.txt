@@ -1,0 +1,16 @@
+Job Description – Python Backend Developer
+
+We are looking for a skilled Python developer with experience in building scalable backend services.
+
+Required:
+- 3+ years of Python experience
+- Strong in Django or FastAPI
+- Good knowledge of PostgreSQL
+- Familiarity with Docker and CI/CD
+
+Nice to have:
+- Experience with AWS or GCP
+- Understanding of microservice architecture
+
+Location: Remote
+Salary: ₹15-22 LPA
