@@ -5,7 +5,9 @@ from PyPDF2 import PdfReader
 from docx import Document
 
 # Set API key
-os.environ["GOOGLE_API_KEY"] = "AIzaSyBvaCZAq2bJkLgdA1kuY_IBLE6TkzP7k1k"
+import dotenv
+dotenv.load_dotenv(".env")
+os.environ["GOOGLE_API_KEY"] = os.getenv("GOOGLE_API_KEY")
 
 # Instantiate the assistant
 assistant = HRAssistantOrchestrator(folder_path="data")
