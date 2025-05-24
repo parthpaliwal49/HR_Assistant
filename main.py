@@ -1,22 +1,17 @@
 import os
 import streamlit as st
-from dotenv import load_dotenv
-
 from agents import HRAssistantOrchestrator
 from PyPDF2 import PdfReader
 from docx import Document
 
-
-# Set API key (placeholder)
-import dotenv
-dotenv.load_dotenv(".env")
-os.environ["GOOGLE_API_KEY"] = os.getenv("GOOGLE_API_KEY")
+# Set API key
+os.environ["GOOGLE_API_KEY"] = "AIzaSyBvaCZAq2bJkLgdA1kuY_IBLE6TkzP7k1k"
 
 # Instantiate the assistant
 assistant = HRAssistantOrchestrator(folder_path="data")
 
 # Page Config
-st.set_page_config(page_title="🤖 GenAI HR Assistant", layout="wide")
+st.set_page_config(page_title="GenAI HR Assistant", layout="wide")
 
 # ----------------------------
 # Custom Styling
@@ -24,69 +19,68 @@ st.set_page_config(page_title="🤖 GenAI HR Assistant", layout="wide")
 st.markdown(
     """
     <style>
-    /* Custom global styles */
     body {
         font-family: 'Segoe UI', sans-serif;
     }
     .main {
-        background-color: #f5f3fa;
+        background-color: #f9f8fb;
+        padding: 2rem;
     }
 
-    /* Title and header styling */
-    h1 {
-        color: #6a0dad;
+    h1, h2, h3, h4 {
+        color: #5a189a;
     }
+
     .stTabs [role="tablist"] {
-        background-color: #f0e6ff;
+        background-color: #efe2ff;
         border-radius: 10px;
+        padding: 0.5rem;
     }
     .stTabs [role="tab"] {
-        font-weight: 600;
-        color: #6a0dad;
+        font-weight: bold;
+        font-size: 1rem;
+        color: #5a189a;
     }
 
-    /* Upload box sizing */
     .stFileUploader {
         width: 100% !important;
     }
 
-    /* Remove default uploader text */
-    .stFileUploader > div > div > div > p,
-    .stFileUploader > div > div > div > label {
-        display: none;
-    }
-
-    /* Buttons */
     button[kind="primary"] {
-        background-color: #6a0dad !important;
+        background-color: #5a189a !important;
         color: white !important;
-        border-radius: 10px;
+        border-radius: 8px;
         font-weight: 600;
     }
 
-    /* Success, warning, info */
     .stAlert {
-        border-left: 5px solid #6a0dad;
+        border-left: 6px solid #5a189a;
+        background-color: #f3e8ff;
     }
 
-    /* Text area styling */
     .stTextArea textarea {
-        background-color: #f5f0ff;
+        background-color: #f7f3ff;
+        border: 1px solid #d3bff5;
     }
+
+    .stSelectbox > div {
+        font-size: 0.9rem !important;
+        padding: 0.2rem !important;
+    }
+
+    .css-1wa3eu0 {
+        font-size: 0.9rem !important;
+    }
+
     </style>
     """,
     unsafe_allow_html=True,
 )
 
 # ----------------------------
-# Header & Home Button
+# Header
 # ----------------------------
-col1, col2 = st.columns([8, 1])
-with col1:
-    st.markdown("<h1>🤖 AI-Powered HR Assistant</h1>", unsafe_allow_html=True)
-with col2:
-    if st.button("🏠 Home"):
-        st.experimental_rerun()
+st.markdown("<h1>🤖 AI-Powered HR Assistant</h1>", unsafe_allow_html=True)
 
 # ----------------------------
 # Text Extraction Helper
@@ -141,7 +135,7 @@ with tabs[1]:
     st.subheader("📬 Candidate Messaging")
 
     candidate_name = st.text_input("👤 Candidate Name")
-    status = st.selectbox("📌 Status", ["Interview", "Rejected", "Offer", "Feedback"])
+    status = st.selectbox("📌 Status", ["Interview", "Rejected", "Offer", "Feedback"], index=0)
     interview_date = st.text_input("📅 Interview Date (Optional)")
 
     if st.button("✉️ Generate Email"):
