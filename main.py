@@ -1,6 +1,6 @@
 import os
 import streamlit as st
-from hr_assistant import HRAssistantOrchestrator
+from agents import HRAssistantOrchestrator
 
 os.environ["GOOGLE_API_KEY"] = "AIzaSyBvaCZAq2bJkLgdA1kuY_IBLE6TkzP7k1k"
 

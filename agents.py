@@ -1,15 +1,15 @@
 import os
-
-os.environ["GOOGLE_API_KEY"] = "AIzaSyBvaCZAq2bJkLgdA1kuY_IBLE6TkzP7k1k"
-
 from langchain.document_loaders import TextLoader
 from langchain.vectorstores import FAISS
 from langchain.chains import RetrievalQA
+import dotenv
 
 from langchain_google_genai import (
     GoogleGenerativeAIEmbeddings,
     ChatGoogleGenerativeAI
 )
+dotenv.load_dotenv()
+os.environ["GOOGLE_API_KEY"] = os.getenv("GOOGLE_API_KEY")
 
 # Instantiate your LLM once here
 llm = ChatGoogleGenerativeAI(model="gemini-2.0-flash", temperature=0.3)
